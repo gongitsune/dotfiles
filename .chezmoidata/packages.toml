@@ -1,2 +1,11 @@
 [packages.linux_arch]
-paru = ["git", "mise", "neovim", "reflector", "wget", "fzf", "lazygit"]
+paru = [
+  "git",
+  "mise",
+  "neovim",
+  "reflector",
+  "wget",
+  "fzf",
+  "lazygit",
+  "github-cli",
+]

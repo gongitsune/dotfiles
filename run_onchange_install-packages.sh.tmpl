@@ -7,7 +7,21 @@ function notify
     echo -e "\e[37m[\e[32mINFO\e[37m]\e[m $argv[1]"
 end
 
-sudo pacman -Syu --needed --noconfirm base base-devel
+# install wslu (Windows Subsystem for Linux Utilities)
+if test -f /proc/sys/fs/binfmt_misc/WSLInterop; and not type -q wslupath
+    notify "Installing wslu"
+    cd $HOME
+    wget https://pkg.wslutiliti.es/public.key
+    sudo pacman-key --add public.key
+    sudo pacman-key --lsign-key 2D4C887EB08424F157151C493DD50AA7E055D853
+    rm public.key
+
+    echo -e "[wslutilities]\nServer = https://pkg.wslutiliti.es/arch/" | sudo tee -a /etc/pacman.conf
+    sudo pacman -Sy --noconfirm
+    sudo pacman -S --needed --noconfirm wslu
+else
+    notify "Skipped installing wslu"
+end
 
 # install paru (AUR helper)
 if not type -q paru
