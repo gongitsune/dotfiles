@@ -1,0 +1,51 @@
+{{ if eq .osid "linux-arch" -}}
+#!/bin/fish
+
+set script_dir (status --current-filename)
+
+function notify
+    echo -e "\e[37m[\e[32mINFO\e[37m]\e[m $argv[1]"
+end
+
+sudo pacman -Syu --needed --noconfirm base base-devel
+
+# install paru (AUR helper)
+if not type -q paru
+    notify "Installing paru(AUR helper)"
+    git clone https://aur.archlinux.org/paru.git $HOME/paru
+    cd $HOME/paru
+    makepkg -si --noconfirm
+    cd $HOME
+    rm -rf paru
+else
+    notify "Skipped installing paru"
+end
+
+# Install package from package list
+notify "Installing packages from package list"
+{{ range .packages.linux_arch.paru -}}
+set -a packages {{ . | quote }}
+{{ end -}}
+paru -S --needed --noconfirm $packages
+set -e packages
+
+# install fisher
+if not type -q fisher
+    notify "Installing fisher"
+    curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+    fisher update
+else
+    notify "Skipped installing fisher"
+end
+
+# mise setup
+notify "Setup mise"
+mise use --global usage
+
+# git config
+notify "Git config"
+git config --global user.name "{{ .git_name }}"
+git config --global user.email "{{ .git_email }}"
+git config --global init.defaultBranch main
+
+{{ end -}}
