@@ -1,6 +1,6 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  event = { "BufReadPost", "BufNewFile" },
+  event = { "User File" },
   cmd = {
     "TSBufDisable",
     "TSBufEnable",

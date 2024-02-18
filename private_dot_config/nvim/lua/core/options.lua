@@ -46,11 +46,14 @@ local options = {
     wrap = false,                                           -- disable wrapping of lines longer than the width of window
     writebackup = false,                                    -- disable making a backup before overwriting a file
   },
+
   g = {
-    mapleader = " ",                                                    -- set leader key
-    maplocalleader = ",",                                               -- set default local leader key
-    icons_enabled = true,                                               -- enable icons
+    mapleader = " ",                                 -- set leader key
+    maplocalleader = ",",                            -- set default local leader key
+    icons_enabled = true,                            -- enable icons
+    max_file = { size = 1024 * 100, lines = 10000 }, -- set global limits for large files
   },
+
   t = vim.t.bufs and vim.t.bufs or { bufs = vim.api.nvim_list_bufs() }, -- initialize buffers for the current tab
 }
 
