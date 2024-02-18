@@ -18,4 +18,58 @@ function M.notify(msg, type, opts)
   vim.schedule(function() vim.notify(msg, type, M.extend_tbl({ title = "Vimmer" }, opts)) end)
 end
 
+--- Get an icon from the AstroNvim internal icons if it is available and return it
+---@param kind string The kind of icon in astronvim.icons to retrieve
+---@param padding? integer Padding to add to the end of the icon
+---@param no_fallback? boolean Whether or not to disable fallback to text icon
+---@return string icon
+function M.get_icon(kind, padding, no_fallback)
+  if not vim.g.icons_enabled and no_fallback then return "" end
+  local icon_pack = vim.g.icons_enabled and "icons" or "text_icons"
+  if not M[icon_pack] then
+    M.icons = require "core.icons.nerd_font"
+    M.text_icons = require "core.icons.text"
+  end
+  local icon = M[icon_pack] and M[icon_pack][kind]
+  return icon and icon .. string.rep(" ", padding or 0) or ""
+end
+
+--- Open a URL under the cursor with the current operating system
+---@param path string The path of the file to open with the system opener
+function M.system_open(path)
+  -- TODO: REMOVE WHEN DROPPING NEOVIM <0.10
+  if vim.ui.open then return vim.ui.open(path) end
+  local cmd
+  if vim.fn.has "mac" == 1 then
+    cmd = { "open" }
+  elseif vim.fn.has "win32" == 1 then
+    if vim.fn.executable "rundll32" then
+      cmd = { "rundll32", "url.dll,FileProtocolHandler" }
+    else
+      cmd = { "cmd.exe", "/K", "explorer" }
+    end
+  elseif vim.fn.has "unix" == 1 then
+    if vim.fn.executable "wslview" == 1 then
+      cmd = { "wslview" }
+    elseif vim.fn.executable "xdg-open" == 1 then
+      cmd = { "xdg-open" }
+    end
+  end
+  if not cmd then M.notify("Available system opening tool not found!", vim.log.levels.ERROR) end
+  if not path then
+    path = vim.fn.expand "<cfile>"
+  elseif not path:match "%w+:" then
+    path = vim.fn.expand(path)
+  end
+  vim.fn.jobstart(vim.list_extend(cmd, { path }), { detach = true })
+end
+
+--- Check if a plugin is defined in lazy. Useful with lazy loading when a plugin is not necessarily loaded yet
+---@param plugin string The plugin to search for
+---@return boolean available # Whether the plugin is available
+function M.is_available(plugin)
+  local lazy_config_avail, lazy_config = pcall(require, "lazy.core.config")
+  return lazy_config_avail and lazy_config.spec.plugins[plugin] ~= nil
+end
+
 return M
