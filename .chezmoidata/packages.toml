@@ -2,10 +2,11 @@
 paru = [
   "git",
   "mise",
-  "neovim",
+  "neovim-git",
   "reflector",
   "wget",
   "fzf",
   "lazygit",
   "github-cli",
+  "rustup",
 ]
