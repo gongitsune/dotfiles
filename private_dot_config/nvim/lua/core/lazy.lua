@@ -28,7 +28,11 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins", {
   defaults = { lazy = true },
-  install = { colorschema = gconf.default_colorscheme },
+  install = {
+    colorscheme = {
+      gconf.default_colorscheme
+    }
+  },
   performance = {
     rtp = {
       disabled_plugins = { "tohtml", "gzip", "zipPlugin", "netrwPlugin", "tarPlugin" },
