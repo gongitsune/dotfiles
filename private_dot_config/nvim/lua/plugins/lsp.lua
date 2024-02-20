@@ -3,20 +3,46 @@ return {
   {
     "folke/neodev.nvim",
     lazy = true,
+    opts = {
+      override = function(root_dir, library)
+        if root_dir:match(vim.fn.stdpath "config") then
+          library.plugins = true
+        end
+        vim.b.neodev_enabled = library.enabled
+      end,
+    },
   },
   {
     "neovim/nvim-lspconfig",
     dependencies = {
       {
         "folke/neoconf.nvim",
+        opts = {},
+        config = function(_, opts)
+          require "neoconf".setup(opts)
+        end
       },
       {
         "williamboman/mason-lspconfig.nvim",
         cmd = { "LspInstall", "LspUninstall" },
-        opts = function(_, opts)
-          if not opts.handlers then opts.handlers = {} end
-          opts.handlers[1] = function(server) require("astronvim.utils.lsp").setup(server) end
-        end,
+        opts = {
+          ensure_installed = {
+            "lua_ls"
+          },
+          handlers = {
+            -- The first entry (without a key) will be the default handler
+            -- and will be called for each installed server that doesn't have
+            -- a dedicated handler.
+            function(server_name) -- default handler (optional)
+              local opts = require "core.utils.lsp".config(server_name)
+              require("lspconfig")[server_name].setup(opts)
+            end,
+            -- Next, you can provide targeted overrides for specific servers.
+            -- ["rust_analyzer"] = function()
+            --   require("rust-tools").setup {}
+            -- end,
+          }
+        },
         config = function(_, opts)
           require "mason-lspconfig".setup(opts)
           require("core.utils").event "MasonLspSetup"
@@ -24,26 +50,49 @@ return {
       },
     },
     cmd = function(_, cmds) -- HACK: lazy load lspconfig on `:Neoconf` if neoconf is available
-      if require("core.utils").is_available "neoconf.nvim" then table.insert(cmds, "Neoconf") end
+      if require "core.utils".is_available "neoconf.nvim" then table.insert(cmds, "Neoconf") end
     end,
     event = "User MyFile",
-    config = require "plugins.configs.lspconfig",
-  },
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    dependencies = {
-      {
-        "jay-babu/mason-null-ls.nvim",
-        cmd = { "NullLsInstall", "NullLsUninstall" },
-        opts = { handlers = {} },
-      },
-    },
-    event = "User AstroFile",
-    opts = function() return { on_attach = require("astronvim.utils.lsp").on_attach } end,
+    config = function(_, _)
+      local utils = require "core.utils"
+      local lsp = require "core.utils.lsp"
+      local get_icon = utils.get_icon
+      local signs = {
+        { name = "DiagnosticSignError",    text = get_icon "DiagnosticError",        texthl = "DiagnosticSignError" },
+        { name = "DiagnosticSignWarn",     text = get_icon "DiagnosticWarn",         texthl = "DiagnosticSignWarn" },
+        { name = "DiagnosticSignHint",     text = get_icon "DiagnosticHint",         texthl = "DiagnosticSignHint" },
+        { name = "DiagnosticSignInfo",     text = get_icon "DiagnosticInfo",         texthl = "DiagnosticSignInfo" },
+        { name = "DapStopped",             text = get_icon "DapStopped",             texthl = "DiagnosticWarn" },
+        { name = "DapBreakpoint",          text = get_icon "DapBreakpoint",          texthl = "DiagnosticInfo" },
+        { name = "DapBreakpointRejected",  text = get_icon "DapBreakpointRejected",  texthl = "DiagnosticError" },
+        { name = "DapBreakpointCondition", text = get_icon "DapBreakpointCondition", texthl = "DiagnosticInfo" },
+        { name = "DapLogPoint",            text = get_icon "DapLogPoint",            texthl = "DiagnosticInfo" },
+      }
+
+      for _, sign in ipairs(signs) do
+        vim.fn.sign_define(sign.name, sign)
+      end
+      lsp.setup_diagnostics(signs)
+
+      local setup_servers = function()
+        vim.api.nvim_exec_autocmds("FileType", { modeline = false })
+        require("core.utils").event "LspSetup"
+      end
+      if require("core.utils").is_available "mason-lspconfig.nvim" then
+        vim.api.nvim_create_autocmd("User", {
+          desc = "set up LSP servers after mason-lspconfig",
+          pattern = "MyMasonLspSetup",
+          once = true,
+          callback = setup_servers,
+        })
+      else
+        setup_servers()
+      end
+    end,
   },
   {
     "stevearc/aerial.nvim",
-    event = "User AstroFile",
+    event = "User MyFile",
     opts = {
       attach_mode = "global",
       backends = { "lsp", "treesitter", "markdown", "man" },

@@ -29,6 +29,15 @@ function M.event(event, delay)
   end
 end
 
+--- Call function if a condition is met
+---@param func function The function to run
+---@param condition boolean # Whether to run the function or not
+---@return any|nil result # the result of the function running or nil
+function M.conditional_func(func, condition, ...)
+  -- if the condition is true or no condition is provided, evaluate the function with the rest of the parameters and return the result
+  if condition and type(func) == "function" then return func(...) end
+end
+
 --- Get an icon from the AstroNvim internal icons if it is available and return it
 ---@param kind string The kind of icon in astronvim.icons to retrieve
 ---@param padding? integer Padding to add to the end of the icon
