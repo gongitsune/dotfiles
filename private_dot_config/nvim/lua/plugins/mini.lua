@@ -1,6 +1,6 @@
 return {
-  {
-    "echasnovski/mini.bufremove",
-    lazy = true,
-  },
+	{
+		"echasnovski/mini.bufremove",
+		lazy = true,
+	},
 }
