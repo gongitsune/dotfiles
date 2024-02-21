@@ -48,6 +48,7 @@ return {
         "query",
         "vim",
         "vimdoc",
+        "haskell",
       },
       highlight = {
         enable = true,

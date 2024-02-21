@@ -30,8 +30,8 @@ return {
       lualine_a = {
         { 'mode', separator = { left = '' }, right_padding = 2 },
       },
-      lualine_b = { 'filename', 'branch' },
-      lualine_c = { 'fileformat' },
+      lualine_b = { 'filename', 'branch', 'diff' },
+      lualine_c = { 'fileformat', 'diagnostics' },
       lualine_x = { get_clients },
       lualine_y = { 'copilot', 'filetype', 'progress' },
       lualine_z = {

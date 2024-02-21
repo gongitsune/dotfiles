@@ -87,7 +87,7 @@ end
 
 --- Helper function to check if any active LSP clients given a filter provide a specific capability
 ---@param capability string The server capability to check for (example: "documentFormattingProvider")
----@param filter vim.lsp.get_active_clients.filter|nil (table|nil) A table with
+---@param filter vim.lsp.get_clients.filter|nil (table|nil) A table with
 ---              key-value pairs used to filter the returned clients.
 ---              The available keys are:
 ---               - id (number): Only return clients with the given id
@@ -95,7 +95,7 @@ end
 ---               - name (string): Only return clients with the given name
 ---@return boolean # Whether or not any of the clients provide the capability
 function M.has_capability(capability, filter)
-  for _, client in ipairs(vim.lsp.get_active_clients(filter)) do
+  for _, client in ipairs(vim.lsp.get_clients(filter)) do
     if client.supports_method(capability) then return true end
   end
   return false
@@ -230,15 +230,12 @@ function M.on_attach(client, bufnr)
     })
   end
 
-  -- if client.supports_method "textDocument/hover" then
-  --   -- TODO: Remove mapping after dropping support for Neovim v0.9, it's automatic
-  --   if vim.fn.has "nvim-0.10" == 0 then
-  --     lsp_mappings.n["K"] = {
-  --       function() vim.lsp.buf.hover() end,
-  --       desc = "Hover symbol details",
-  --     }
-  --   end
-  -- end
+  if client.supports_method "textDocument/hover" then
+    lsp_mappings.n["K"] = {
+      function() vim.lsp.buf.hover() end,
+      desc = "Hover symbol details",
+    }
+  end
 
   if client.supports_method "textDocument/implementation" then
     lsp_mappings.n["gI"] = {
@@ -371,6 +368,30 @@ function M.config(server_name)
   opts.on_attach = M.on_attach
 
   return opts
+end
+
+local configured_handlers = {
+  -- ["hls"] = function(opts)
+  --   vim.g.haskell_tools = {
+  --     hls = {
+  --       on_attach = opts.on_attach
+  --     }
+  --   }
+  -- end,
+}
+function M.setup_handlers()
+  local handler = function(server_name)
+    local opts = M.config(server_name)
+    if configured_handlers[server_name] then
+      pcall(configured_handlers[server_name], opts)
+    else
+      require("lspconfig")[server_name].setup(opts)
+    end
+  end
+
+  require "mason-lspconfig".setup_handlers({
+    handler
+  })
 end
 
 return M

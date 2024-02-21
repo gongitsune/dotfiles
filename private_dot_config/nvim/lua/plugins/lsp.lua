@@ -28,23 +28,11 @@ return {
         opts = {
           ensure_installed = {
             "lua_ls"
-          },
-          handlers = {
-            -- The first entry (without a key) will be the default handler
-            -- and will be called for each installed server that doesn't have
-            -- a dedicated handler.
-            function(server_name) -- default handler (optional)
-              local opts = require "core.utils.lsp".config(server_name)
-              require("lspconfig")[server_name].setup(opts)
-            end,
-            -- Next, you can provide targeted overrides for specific servers.
-            -- ["rust_analyzer"] = function()
-            --   require("rust-tools").setup {}
-            -- end,
           }
         },
         config = function(_, opts)
           require "mason-lspconfig".setup(opts)
+          require "core.utils.lsp".setup_handlers()
           require("core.utils").event "MasonLspSetup"
         end,
       },
