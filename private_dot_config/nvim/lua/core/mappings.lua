@@ -30,6 +30,12 @@ maps.n["<C-q>"] = { "<cmd>qa!<cr>", desc = "Force quit" }
 maps.n["|"] = { "<cmd>vsplit<cr>", desc = "Vertical Split" }
 maps.n["\\"] = { "<cmd>split<cr>", desc = "Horizontal Split" }
 
+-- navigate within insert mode
+maps.i["<C-h>"] = { "<Left>", desc = "Move left" }
+maps.i["<C-l>"] = { "<Right>", desc = "Move right" }
+maps.i["<C-j>"] = { "<Down>", desc = "Move down" }
+maps.i["<C-k>"] = { "<Up>", desc = "Move up" }
+
 -- Plugin Manager
 maps.n["<Leader>p"] = sections.p
 maps.n["<Leader>pi"] = { function() require("lazy").install() end, desc = "Plugins Install" }

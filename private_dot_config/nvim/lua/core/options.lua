@@ -29,6 +29,7 @@ local options = {
     number = true,                                          -- show numberline
     preserveindent = true,                                  -- preserve indent structure as much as possible
     pumheight = 10,                                         -- height of the pop up menu
+    pumblend = 10,                                          -- blend of the pop up menu
     relativenumber = true,                                  -- show relative numberline
     shiftwidth = 2,                                         -- number of space inserted for indentation
     showmode = false,                                       -- disable showing modes in command line
@@ -65,7 +66,7 @@ local options = {
     inlay_hints_enabled = false,                     -- enable or disable LSP inlay hints on startup (Neovim v0.10 only)
     lsp_handlers_enabled = true,                     -- enable or disable default vim.lsp.handlers (hover and signature help)
     semantic_tokens_enabled = true,                  -- enable or disable LSP semantic tokens on startup
-    ui_notifications_enabled = true,                 -- disable notifications (TODO: rename to  notifications_enabled in AstroNvim v4)
+    ui_notifications_enabled = true,                 -- disable notifications
     git_worktrees = nil,                             -- enable git integration for detached worktrees (specify a table where each entry is of the form { toplevel = vim.env.HOME, gitdir=vim.env.HOME .. "/.dotfiles" })
   },
 

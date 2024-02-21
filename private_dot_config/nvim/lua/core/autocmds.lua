@@ -4,7 +4,7 @@ local autocmd = vim.api.nvim_create_autocmd
 local utils = require "core.utils"
 
 autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
-  desc = "AstroNvim user events for file detection (AstroFile and AstroGitFile)",
+  desc = "Nvim user events for file detection (MyFile and MyGitFile)",
   group = augroup("file_user_events", { clear = true }),
   callback = function(args)
     local current_file = vim.fn.resolve(vim.fn.expand "%")

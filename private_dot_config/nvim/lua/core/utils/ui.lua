@@ -1,7 +1,7 @@
 local M = {}
 
 local function bool2str(bool) return bool and "on" or "off" end
-local function ui_notify(silent, ...) return not silent and require("astronvim.utils").notify(...) end
+local function ui_notify(silent, ...) return not silent and require("core.utils").notify(...) end
 
 --- Toggle auto format
 ---@param silent? boolean if true then don't sent a notification
