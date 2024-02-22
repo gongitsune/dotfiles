@@ -159,6 +159,7 @@ return {
 		opts = {
 			formatters_by_ft = {
 				lua = { "stylua" },
+				haskell = { "fourmolu" },
 			},
 		},
 		config = function(_, opts)
