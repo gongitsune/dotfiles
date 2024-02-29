@@ -17,39 +17,42 @@ local function get_clients()
 end
 
 return {
-	"nvim-lualine/lualine.nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons" },
-	event = "BufEnter",
-	opts = {
-		options = {
-			theme = "nord",
-			component_separators = "|",
-			section_separators = { left = "", right = "" },
-		},
-		sections = {
-			lualine_a = {
-				{ "mode", separator = { left = "" }, right_padding = 2 },
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		event = "BufEnter",
+		opts = {
+			options = {
+				theme = "nord",
+				component_separators = "|",
+				section_separators = { left = "", right = "" },
 			},
-			lualine_b = { "filename", "branch", "diff" },
-			lualine_c = { "fileformat", "diagnostics" },
-			lualine_x = { get_clients },
-			lualine_y = { "copilot", "filetype", "progress" },
-			lualine_z = {
-				{ "location", separator = { right = "" }, left_padding = 2 },
+			sections = {
+				lualine_a = {
+					{ "mode", separator = { left = "" }, right_padding = 2 },
+				},
+				lualine_b = { "filename", "branch", "diff" },
+				lualine_c = { "fileformat", "diagnostics" },
+				lualine_x = { get_clients },
+				lualine_y = { "copilot", "filetype", "progress" },
+				lualine_z = {
+					{ "location", separator = { right = "" }, left_padding = 2 },
+				},
 			},
+			inactive_sections = {
+				lualine_a = { "filename" },
+				lualine_b = {},
+				lualine_c = {},
+				lualine_x = {},
+				lualine_y = {},
+				lualine_z = { "location" },
+			},
+			tabline = {},
+			extensions = {},
 		},
-		inactive_sections = {
-			lualine_a = { "filename" },
-			lualine_b = {},
-			lualine_c = {},
-			lualine_x = {},
-			lualine_y = {},
-			lualine_z = { "location" },
-		},
-		tabline = {},
-		extensions = {},
+		config = function(_, opts)
+			require("lualine").setup(opts)
+		end,
 	},
-	config = function(_, opts)
-		require("lualine").setup(opts)
-	end,
+	{ "AndreM222/copilot-lualine" },
 }

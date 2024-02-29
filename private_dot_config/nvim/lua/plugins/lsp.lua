@@ -28,6 +28,7 @@ return {
 				opts = {
 					ensure_installed = {
 						"lua_ls",
+						"rust_analyzer",
 					},
 				},
 				config = function(_, opts)
@@ -160,6 +161,10 @@ return {
 			formatters_by_ft = {
 				lua = { "stylua" },
 				haskell = { "fourmolu" },
+				html = { "biome" },
+				typescript = { "biome" },
+				javascrip = { "biome" },
+				rust = { "rustfmt" },
 			},
 		},
 		config = function(_, opts)

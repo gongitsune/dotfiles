@@ -42,4 +42,26 @@ return {
 			}
 		end,
 	},
+	{
+		"pmizio/typescript-tools.nvim",
+		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+		ft = { "typescript", "typescriptreact" },
+		opts = {
+			on_attach = require("core.utils.lsp").on_attach,
+		},
+		config = function(_, opts)
+			require("typescript-tools").setup(opts)
+		end,
+	},
+	{
+		"mrcjkb/rustaceanvim",
+		ft = { "rust" },
+		init = function()
+			vim.g.rustaceanvim = {
+				server = {
+					on_attach = require("core.utils.lsp").on_attach,
+				},
+			}
+		end,
+	},
 }

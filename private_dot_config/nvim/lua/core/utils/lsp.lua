@@ -77,10 +77,6 @@ local function del_buffer_autocmd(augroup, bufnr)
 end
 
 M.formatting = { format_on_save = { enabled = true }, disabled = {} }
-if type(M.formatting.format_on_save) == "boolean" then
-	M.formatting.format_on_save = { enabled = M.formatting.format_on_save }
-end
-
 M.format_opts = vim.deepcopy(M.formatting)
 M.format_opts.disabled = nil
 M.format_opts.format_on_save = nil
@@ -200,14 +196,15 @@ function M.on_attach(client, bufnr)
 		}
 	end
 
-	if client.supports_method("textDocument/definition") then
-		lsp_mappings.n["gd"] = {
-			function()
-				vim.lsp.buf.definition()
-			end,
-			desc = "Show the definition of current symbol",
-		}
-	end
+	-- TODO: If you this conditional statement, will not be able to move to the function definition in Haskell.
+	-- if client.supports_method("textDocument/definition") then
+	lsp_mappings.n["gd"] = {
+		function()
+			vim.lsp.buf.definition()
+		end,
+		desc = "Show the definition of current symbol",
+	}
+	-- end
 
 	if client.supports_method("textDocument/formatting") and not tbl_contains(M.formatting.disabled, client.name) then
 		lsp_mappings.n["<leader>lf"] = {
@@ -227,10 +224,8 @@ function M.on_attach(client, bufnr)
 			autoformat.enabled
 			and (tbl_isempty(autoformat.allow_filetypes or {}) or tbl_contains(autoformat.allow_filetypes, filetype))
 			and (
-				tbl_isempty(autoformat.ignore_filetypes or {}) or not tbl_contains(
-					autoformat.ignore_filetypes,
-					filetype
-				)
+				tbl_isempty(autoformat.ignore_filetypes or {})
+				or not tbl_contains(autoformat.ignore_filetypes, filetype)
 			)
 		then
 			add_buffer_autocmd("lsp_auto_format", bufnr, {
@@ -480,12 +475,13 @@ local configured_handlers = {
 	--   }
 	-- end,
 }
+local skip_handlers = { "hls", "rust_analyzer" }
 function M.setup_handlers()
 	local handler = function(server_name)
 		local opts = M.config(server_name)
 		if configured_handlers[server_name] then
 			pcall(configured_handlers[server_name], opts)
-		else
+		elseif not vim.tbl_contains(skip_handlers, server_name) then
 			require("lspconfig")[server_name].setup(opts)
 		end
 	end
