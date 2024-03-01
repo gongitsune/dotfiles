@@ -151,7 +151,8 @@ return {
 		event = "User MyFile",
 		config = function()
 			require("lint").linters_by_ft = {
-				haskell = { "hlint" },
+				haskell = { "hlint", "cspell" },
+				rust = { "cspell" },
 			}
 		end,
 	},

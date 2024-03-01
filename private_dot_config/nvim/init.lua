@@ -8,6 +8,7 @@ for _, source in ipairs({
 	"core.lazy",
 	"core.autocmds",
 	"core.mappings",
+	"core.filetype",
 }) do
 	local status_ok, fault = pcall(require, source)
 	if not status_ok then
