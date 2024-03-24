@@ -93,3 +93,9 @@ autocmd({ "BufDelete", "TermClose" }, {
 		vim.cmd.redrawtabline()
 	end,
 })
+
+autocmd({ "BufWritePost" }, {
+	callback = function()
+		require("lint").try_lint()
+	end,
+})

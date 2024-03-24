@@ -53,15 +53,4 @@ return {
 			require("typescript-tools").setup(opts)
 		end,
 	},
-	{
-		"mrcjkb/rustaceanvim",
-		ft = { "rust" },
-		init = function()
-			vim.g.rustaceanvim = {
-				server = {
-					on_attach = require("core.utils.lsp").on_attach,
-				},
-			}
-		end,
-	},
 }

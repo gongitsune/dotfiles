@@ -475,7 +475,7 @@ local configured_handlers = {
 	--   }
 	-- end,
 }
-local skip_handlers = { "hls", "rust_analyzer" }
+local skip_handlers = { "hls" }
 function M.setup_handlers()
 	local handler = function(server_name)
 		local opts = M.config(server_name)

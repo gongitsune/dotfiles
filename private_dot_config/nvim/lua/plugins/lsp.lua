@@ -153,6 +153,7 @@ return {
 			require("lint").linters_by_ft = {
 				haskell = { "hlint", "cspell" },
 				rust = { "cspell" },
+				glsl = { "glslc", "cspell" },
 			}
 		end,
 	},
@@ -166,6 +167,7 @@ return {
 				typescript = { "biome" },
 				javascrip = { "biome" },
 				rust = { "rustfmt" },
+				glsl = { "clang_format" },
 			},
 		},
 		config = function(_, opts)
