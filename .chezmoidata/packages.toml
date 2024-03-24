@@ -2,7 +2,7 @@
 paru = [
   "git",
   "mise",
-  "neovim-nightly",
+  "neovim-nightly-bin",
   "reflector",
   "wget",
   "fzf",
@@ -11,5 +11,6 @@ paru = [
   "rustup",
   "ripgrep",
   "fd",
-  "bottom"
+  "bottom",
+  "starship",
 ]
