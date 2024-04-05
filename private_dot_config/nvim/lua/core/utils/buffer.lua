@@ -108,4 +108,33 @@ function M.close_all(keep_current, force)
 	end
 end
 
+--- Check if a buffer can be restored
+---@param bufnr number The buffer to check
+---@return boolean # Whether the buffer is restorable or not
+function M.is_restorable(bufnr)
+	if not M.is_valid(bufnr) or vim.api.nvim_get_option_value("bufhidden", { buf = bufnr }) ~= "" then
+		return false
+	end
+
+	local buftype = vim.api.nvim_get_option_value("buftype", { buf = bufnr })
+	if buftype == "" then
+		-- Normal buffer, check if it listed.
+		if not vim.api.nvim_get_option_value("buflisted", { buf = bufnr }) then
+			return false
+		end
+		-- Check if it has a filename.
+		if vim.api.nvim_buf_get_name(bufnr) == "" then
+			return false
+		end
+	end
+
+	if
+		vim.tbl_contains(M.sessions.ignore.filetypes, vim.api.nvim_get_option_value("filetype", { buf = bufnr }))
+		or vim.tbl_contains(M.sessions.ignore.buftypes, vim.api.nvim_get_option_value("buftype", { buf = bufnr }))
+	then
+		return false
+	end
+	return true
+end
+
 return M

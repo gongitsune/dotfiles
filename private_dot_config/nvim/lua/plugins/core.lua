@@ -53,6 +53,9 @@ return {
 		end,
 	},
 	{
+		"windwp/nvim-ts-autotag",
+	},
+	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
 		opts = {

@@ -3,6 +3,7 @@ return {
 	dependencies = {
 		"JoosepAlviste/nvim-ts-context-commentstring",
 		"nvim-treesitter/nvim-treesitter-textobjects",
+		"windwp/nvim-ts-autotag",
 	},
 	event = "User MyFile",
 	cmd = {

@@ -1,6 +1,7 @@
 local function get_clients()
 	local prefix = " "
-	local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+	-- local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+	local buf_ft = vim.bo.filetype
 	local nvim_clients = vim.lsp.get_clients()
 	local clients = {}
 	if next(nvim_clients) == nil then

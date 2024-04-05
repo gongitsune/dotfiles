@@ -29,6 +29,8 @@ return {
 					ensure_installed = {
 						"lua_ls",
 						"rust_analyzer",
+						"jsonls",
+						"pyright",
 					},
 				},
 				config = function(_, opts)
@@ -150,10 +152,16 @@ return {
 		"mfussenegger/nvim-lint",
 		event = "User MyFile",
 		config = function()
-			require("lint").linters_by_ft = {
+			local lint = require("lint")
+			lint.linters_by_ft = {
 				haskell = { "hlint", "cspell" },
 				rust = { "cspell" },
 				glsl = { "glslc", "cspell" },
+				typescript = { "biomejs" },
+				javascript = { "biomejs" },
+				typescriptreact = { "biomejs" },
+				javascriptreact = { "biomejs" },
+				markdown = { "markdownlint" },
 			}
 		end,
 	},
@@ -166,8 +174,13 @@ return {
 				html = { "biome" },
 				typescript = { "biome" },
 				javascrip = { "biome" },
+				typescriptreact = { "biome" },
+				javascriptreact = { "biome" },
 				rust = { "rustfmt" },
 				glsl = { "clang_format" },
+				json = { "biome" },
+				python = { "ruff" },
+				markdown = { "markdownlint" },
 			},
 		},
 		config = function(_, opts)
