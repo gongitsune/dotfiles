@@ -1,7 +1,7 @@
 [packages.linux_arch]
 paru = [
   "git",
-  "mise",
+  "mise-bin",
   "neovim-nightly-bin",
   "reflector",
   "wget",
