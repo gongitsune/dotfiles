@@ -31,6 +31,7 @@ return {
 						"rust_analyzer",
 						"jsonls",
 						"pyright",
+						"clangd",
 					},
 				},
 				config = function(_, opts)
@@ -181,6 +182,7 @@ return {
 				json = { "biome" },
 				python = { "ruff" },
 				markdown = { "markdownlint" },
+				c = { "clang_format" },
 			},
 		},
 		config = function(_, opts)

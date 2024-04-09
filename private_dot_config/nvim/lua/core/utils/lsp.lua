@@ -460,6 +460,8 @@ function M.config(server_name)
 			end
 		end
 		opts.settings = { Lua = { workspace = { checkThirdParty = false } } }
+	elseif server_name == "clangd" then
+		opts.capabilities.offsetEncoding = "utf-8"
 	end
 	opts.on_attach = M.on_attach
 
