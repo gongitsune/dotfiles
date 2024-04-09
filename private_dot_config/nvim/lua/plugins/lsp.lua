@@ -25,15 +25,6 @@ return {
 			{
 				"williamboman/mason-lspconfig.nvim",
 				cmd = { "LspInstall", "LspUninstall" },
-				opts = {
-					ensure_installed = {
-						"lua_ls",
-						"rust_analyzer",
-						"jsonls",
-						"pyright",
-						"clangd",
-					},
-				},
 				config = function(_, opts)
 					require("mason-lspconfig").setup(opts)
 					require("core.utils.lsp").setup_handlers()
@@ -187,6 +178,36 @@ return {
 		},
 		config = function(_, opts)
 			require("conform").setup(opts)
+		end,
+	},
+	{
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		event = "VeryLazy",
+		dependencies = {
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
+		},
+		config = function()
+			require("mason-tool-installer").setup({
+				ensure_installed = {
+					-- LSP servers
+					"lua-language-server",
+					"rust_analyzer",
+					"jsonls",
+					"pyright",
+					"clangd",
+					"taplo",
+					"tailwindcss-language-server",
+
+					-- Formatters & Linters
+					"stylua",
+					"markdownlint",
+					"ruff",
+					"fourmolu",
+					"biome",
+					"cspell",
+				},
+			})
 		end,
 	},
 }
