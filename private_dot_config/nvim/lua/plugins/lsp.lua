@@ -206,6 +206,7 @@ return {
 					"fourmolu",
 					"biome",
 					"cspell",
+					"clang-format",
 				},
 			})
 		end,
