@@ -1,0 +1,40 @@
+{{ if eq .osid "linux-arch" -}}
+#!/bin/bash -eEu
+if [ ! -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+  exit 0 
+fi
+
+function notify() {
+  echo -e "\e[37m[\e[32mINFO\e[37m]\e[m $1"
+}
+
+notify "WSL detected, installing packages"
+
+sudo pacman -S --noconfirm --needed base-devel git wget unzip
+
+if ! type -P paru > /dev/null; then
+  notify "Installing paru"
+  git clone https://aur.archlinux.org/paru.git $HOME/paru
+  cd $HOME/paru
+  makepkg -si --noconfirm
+  cd $HOME
+  rm -rf paru
+  notify "paru installed"
+fi
+
+notify "Installing packages"
+paru -S --noconfirm --needed \
+  fish \
+  neovim-nightly-bin \
+  zellij \
+  mise-bin \
+  reflector \
+  fzf \
+  lazygit \
+  github-cli \
+  ripgrep \
+  fd \
+  bottom \
+  starship 
+
+{{ end -}}
