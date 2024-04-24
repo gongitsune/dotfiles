@@ -2,7 +2,7 @@ return {
 	{
 		"akinsho/bufferline.nvim",
 		event = "BufEnter",
-		version = "*",
+		branch = "main",
 		dependencies = "nvim-tree/nvim-web-devicons",
 		opts = function()
 			return {

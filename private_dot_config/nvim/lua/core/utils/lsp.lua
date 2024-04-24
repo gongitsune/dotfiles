@@ -51,11 +51,11 @@ M.setup_diagnostics = function(signs)
 end
 
 local function add_buffer_autocmd(augroup, bufnr, autocmds)
-	if not vim.tbl_islist(autocmds) then
+	if not vim.islist(autocmds) then
 		autocmds = { autocmds }
 	end
 	local cmds_found, cmds = pcall(vim.api.nvim_get_autocmds, { group = augroup, buffer = bufnr })
-	if not cmds_found or vim.tbl_isempty(cmds) then
+	if not cmds_found or tbl_isempty(cmds) then
 		vim.api.nvim_create_augroup(augroup, { clear = false })
 		for _, autocmd in ipairs(autocmds) do
 			local events = autocmd.events
@@ -421,7 +421,7 @@ function M.on_attach(client, bufnr)
 		end
 	end
 
-	if not vim.tbl_isempty(lsp_mappings.v) then
+	if not tbl_isempty(lsp_mappings.v) then
 		lsp_mappings.v["<leader>l"] = { desc = utils.get_icon("ActiveLSP", 1, true) .. "LSP" }
 	end
 	utils.set_mappings(lsp_mappings, { buffer = bufnr })
