@@ -89,7 +89,7 @@ end
 
 --- Helper function to check if any active LSP clients given a filter provide a specific capability
 ---@param capability string The server capability to check for (example: "documentFormattingProvider")
----@param filter vim.lsp.get_clients.filter|nil (table|nil) A table with
+---@param filter vim.lsp.get_clients.Filter|nil (table|nil) A table with
 ---              key-value pairs used to filter the returned clients.
 ---              The available keys are:
 ---               - id (number): Only return clients with the given id
@@ -308,7 +308,7 @@ function M.on_attach(client, bufnr)
 			vim.b.inlay_hints_enabled = vim.g.inlay_hints_enabled
 		end
 		if vim.b.inlay_hints_enabled then
-			vim.lsp.inlay_hint.enable(bufnr, true)
+			vim.lsp.inlay_hint.enable(bufnr, { bufnr = bufnr })
 		end
 	end
 
