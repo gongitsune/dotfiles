@@ -78,4 +78,4 @@ for scope, table in pairs(options) do
 	end
 end
 
-vim.cmd("language en_US") -- set language to en_US
+vim.cmd("language en_US.UTF-8") -- set language to en_US

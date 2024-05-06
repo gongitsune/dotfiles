@@ -25,6 +25,7 @@ fi
 notify "Installing packages"
 paru -S --noconfirm --needed \
   fish \
+  fisher \
   neovim-nightly-bin \
   zellij \
   mise-bin \
@@ -42,5 +43,15 @@ notify "Git config"
 git config --global user.name "{{ .git_name }}"
 git config --global user.email "{{ .git_email }}"
 git config --global init.defaultBranch main
+
+# mise
+notify "install with mise"
+mise use -g usage@latest
+mise use -g node@latest
+mise use -g python@latest
+
+# fisher
+notify "install with fisher"
+echo "fisher update" | fish
 
 {{ end -}}
