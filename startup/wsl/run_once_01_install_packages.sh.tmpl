@@ -10,7 +10,15 @@ function notify() {
 
 notify "WSL detected, installing packages"
 
-sudo pacman -S --noconfirm --needed base-devel git wget unzip
+sudo pacman -S --noconfirm --needed base-devel git wget unzip rustup
+
+# rustup
+notify "install with rustup"
+rustup install nightly
+rustup target add x86_64-pc-windows-msvc
+rustup target add x86_64-pc-windows-gnu
+rustup install stable
+rustup default stable
 
 if ! type -P paru > /dev/null; then
   notify "Installing paru"
@@ -36,7 +44,7 @@ paru -S --noconfirm --needed \
   ripgrep \
   fd \
   bottom \
-  starship 
+  starship \
 
 # git config
 notify "Git config"
