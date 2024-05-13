@@ -146,9 +146,9 @@ return {
 		config = function()
 			local lint = require("lint")
 			lint.linters_by_ft = {
-				haskell = { "hlint", "cspell" },
+				haskell = { "hlint" },
 				rust = { "cspell" },
-				glsl = { "glslc", "cspell" },
+				glsl = { "glslc" },
 				typescript = { "biomejs" },
 				javascript = { "biomejs" },
 				typescriptreact = { "biomejs" },
@@ -163,9 +163,9 @@ return {
 			formatters_by_ft = {
 				lua = { "stylua" },
 				haskell = { "fourmolu" },
-				html = { "biome" },
+				html = { { "prettierd", "prettier" } },
 				typescript = { "biome" },
-				javascrip = { "biome" },
+				javascript = { "biome" },
 				typescriptreact = { "biome" },
 				javascriptreact = { "biome" },
 				rust = { "rustfmt" },
@@ -174,6 +174,7 @@ return {
 				python = { "ruff" },
 				markdown = { "markdownlint" },
 				c = { "clang_format" },
+				["*"] = { "codespell" },
 			},
 		},
 		config = function(_, opts)
@@ -198,6 +199,9 @@ return {
 					"clangd",
 					"taplo",
 					"tailwindcss-language-server",
+					"glsl_analyzer",
+					"html-lsp",
+					"typecript-language-server",
 
 					-- Formatters & Linters
 					"stylua",
@@ -205,8 +209,10 @@ return {
 					"ruff",
 					"fourmolu",
 					"biome",
-					"cspell",
+					"codespell",
 					"clang-format",
+					"prettierd",
+					"prettier",
 				},
 			})
 		end,

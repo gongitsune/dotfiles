@@ -105,6 +105,9 @@ function M.has_capability(capability, filter)
 	return false
 end
 
+--- on attach
+--- @param client vim.lsp.Client
+--- @param bufnr integer?
 function M.on_attach(client, bufnr)
 	local lsp_mappings = require("core.utils").empty_map_table()
 
@@ -156,7 +159,7 @@ function M.on_attach(client, bufnr)
 		lsp_mappings.v["<leader>la"] = lsp_mappings.n["<leader>la"]
 	end
 
-	if client.supports_method("textDocument/codeLens") then
+	if client.supports_method("textDocument/codeLens", { bufnr = bufnr }) then
 		add_buffer_autocmd("lsp_codelens_refresh", bufnr, {
 			events = { "InsertLeave", "BufEnter" },
 			desc = "Refresh codelens",

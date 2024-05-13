@@ -50,6 +50,9 @@ return {
 				"vim",
 				"vimdoc",
 				"haskell",
+				"glsl",
+				"toml",
+				"json",
 			},
 			highlight = {
 				enable = true,
