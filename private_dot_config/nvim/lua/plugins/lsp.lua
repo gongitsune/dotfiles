@@ -201,7 +201,6 @@ return {
 					"tailwindcss-language-server",
 					"glsl_analyzer",
 					"html-lsp",
-					-- "typecript-language-server",
 
 					-- Formatters & Linters
 					"stylua",
