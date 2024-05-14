@@ -147,7 +147,6 @@ return {
 			local lint = require("lint")
 			lint.linters_by_ft = {
 				haskell = { "hlint" },
-				rust = { "cspell" },
 				glsl = { "glslc" },
 				typescript = { "biomejs" },
 				javascript = { "biomejs" },
@@ -174,7 +173,6 @@ return {
 				python = { "ruff" },
 				markdown = { "markdownlint" },
 				c = { "clang_format" },
-				["*"] = { "codespell" },
 			},
 		},
 		config = function(_, opts)
@@ -208,10 +206,10 @@ return {
 					"ruff",
 					"fourmolu",
 					"biome",
-					"codespell",
 					"clang-format",
 					"prettierd",
 					"prettier",
+					"typos",
 				},
 			})
 		end,

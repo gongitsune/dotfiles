@@ -28,6 +28,7 @@ maps.n["<Leader>n"] = { "<cmd>enew<cr>", desc = "New File" }
 maps.n["<C-q>"] = { "<cmd>qa!<cr>", desc = "Force quit" }
 maps.n["|"] = { "<cmd>vsplit<cr>", desc = "Vertical Split" }
 maps.n["\\"] = { "<cmd>split<cr>", desc = "Horizontal Split" }
+maps.n["<Leader>r"] = { "1z=", desc = get_icon("spellcheck", 1, true) .. "Replace" }
 
 -- navigate within insert mode
 maps.i["<C-h>"] = { "<Left>", desc = "Move left" }

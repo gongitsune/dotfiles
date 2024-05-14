@@ -465,6 +465,9 @@ function M.config(server_name)
 		opts.settings = { Lua = { workspace = { checkThirdParty = false } } }
 	elseif server_name == "clangd" then
 		opts.capabilities.offsetEncoding = "utf-8"
+	elseif server_name == "rust_analyzer" then
+		opts.capabilities.offsetEncoding = { "utf-8", "utf-16" }
+		opts.capabilities.experimental = { procMacro = true }
 	end
 	opts.on_attach = M.on_attach
 
