@@ -1,0 +1,17 @@
+{{- $osid := .chezmoi.os -}}
+{{- if hasKey .chezmoi.osRelease "id" -}}
+{{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{- end -}}
+
+[data]
+osid = {{ $osid | quote }}
+git_email = "89068705+gongitsune@users.noreply.github.com"
+git_name = "kara"
+
+[edit]
+{{ if eq .chezmoi.os "linux" }}
+command = "nvim"
+{{ else }}
+command = "code"
+args = ["--wait"]
+{{ end }}

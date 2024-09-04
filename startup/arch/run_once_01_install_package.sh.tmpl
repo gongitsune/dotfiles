@@ -1,0 +1,65 @@
+{{ if eq .osid "linux-arch" -}}
+#!/bin/bash -eEu
+
+# Linux common installation
+sudo pacman -S --noconfirm --needed base-devel git wget unzip rustup gum
+
+# rustup
+gum log --level info "Installing rustup"
+rustup install nightly
+rustup install stable
+rustup default stable
+
+# install paru
+if ! command -v paru &>/dev/null; then
+    gum log --level info "Installing paru"
+    git clone https://aur.archlinux.org/paru.git "$HOME/paru"
+    cd "$HOME/paru" || exit
+    makepkg -si --noconfirm
+    cd $HOME || exit
+    rm -rf "$HOME/paru"
+fi
+
+# install packages
+gum log --level info "Installing packages"
+paru -S --noconfirm --needed \
+    fish \
+    fisher \
+    neovim-nightly-bin \
+    zellij \
+    mise-bin \
+    reflector \
+    fzf \
+    lazygit \
+    github-cli \
+    ripgrep \
+    fd \
+    bottom \
+    starship
+
+# git config
+gum log --level info "Git config"
+git config --global user.name "{{ .git_name }}"
+git config --global user.email "{{ .git_email }}"
+git config --global init.defaultBranch main
+
+# mise
+gum log --level info "install with mise"
+mise use -g usage@latest
+mise use -g node@latest
+mise use -g python@latest
+
+# fisher
+gum log --level info "install with fisher"
+echo "fisher update" | fish
+
+{{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+
+curl -Lo /tmp/win32yank.zip https://github.com/equalsraf/win32yank/releases/download/v0.1.1/win32yank-x64.zip
+unzip /tmp/win32yank.zip
+chmod +x win32yank.exe
+sudo mv win32yank.exe /usr/local/bin/
+
+{{   end }}
+{{ end -}}
+
