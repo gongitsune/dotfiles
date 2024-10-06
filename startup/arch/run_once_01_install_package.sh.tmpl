@@ -37,6 +37,9 @@ paru -S --noconfirm --needed \
     bottom \
     starship
 
+# reflector
+sudo reflector --country Japan --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+
 # git config
 gum log --level info "Git config"
 git config --global user.name "{{ .git_name }}"
