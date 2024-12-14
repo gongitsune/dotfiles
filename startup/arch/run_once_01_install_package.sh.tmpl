@@ -6,7 +6,6 @@ sudo pacman -S --noconfirm --needed base-devel git wget unzip rustup gum
 
 # rustup
 gum log --level info "Installing rustup"
-rustup install nightly
 rustup install stable
 rustup default stable
 
@@ -25,8 +24,7 @@ gum log --level info "Installing packages"
 paru -S --noconfirm --needed \
     fish \
     fisher \
-    neovim-nightly-bin \
-    zellij \
+    neovim \
     mise-bin \
     reflector \
     fzf \
@@ -35,7 +33,8 @@ paru -S --noconfirm --needed \
     ripgrep \
     fd \
     bottom \
-    starship
+    starship \
+    uv
 
 # reflector
 sudo reflector --country Japan --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
@@ -50,7 +49,6 @@ git config --global init.defaultBranch main
 gum log --level info "install with mise"
 mise use -g usage@latest
 mise use -g node@latest
-mise use -g python@latest
 
 # fisher
 gum log --level info "install with fisher"
