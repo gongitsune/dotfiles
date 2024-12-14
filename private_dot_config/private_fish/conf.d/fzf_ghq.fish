@@ -1,0 +1,1 @@
+bind \cg '_fzf_ghq'
