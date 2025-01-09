@@ -8,3 +8,7 @@ starship init fish | source
 
 # mise
 mise activate fish | source
+
+# Environment Variables
+set -x CC /bin/gcc
+set -x CXX /bin/g++
