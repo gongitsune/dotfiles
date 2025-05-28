@@ -17,3 +17,4 @@ packages:
 - name: junegunn/fzf@v0.62.0
 - name: sharkdp/fd@v10.2.0
 - name: sharkdp/bat@v0.25.0
+- name: nodejs/node@v24.1.0
