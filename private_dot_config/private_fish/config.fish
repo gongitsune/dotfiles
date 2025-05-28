@@ -1,5 +1,7 @@
 if status is-interactive
-    # Commands to run in interactive sessions can go here
+  mise activate fish | source
+else
+  mise activate fish --shims | source
 end
 
 starship init fish | source
