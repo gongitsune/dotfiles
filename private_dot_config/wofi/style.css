@@ -1,0 +1,119 @@
+@define-color mauve #33ddee;
+@define-color red #dddddd;
+@define-color lavender #3333ff;
+@define-color text #eeeeee;
+@define-color background #333333;
+
+@keyframes fadeIn {
+  0% {}
+
+  100% {}
+}
+
+* {
+  all: unset;
+  font-family: 'CodeNewRoman Nerd Font Mono', monospace;
+  font-size: 14px;
+  outline: none;
+  border: none;
+  text-shadow: none;
+  background-color: transparent;
+}
+
+window {
+  all: unset;
+  padding: 5px;
+  border-radius: 15px;
+  background-color: alpha(@background, .9);
+}
+
+#inner-box {
+  margin: 2px;
+  padding: 5px;
+  border: none;
+}
+
+#outer-box {
+  border: none;
+}
+
+#scroll {
+  margin: 0px;
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-top: 1px solid #444444;
+}
+
+#input {
+  all: unset;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  outline: none;
+  color: @text;
+  /* box-shadow: 1px 1px 5px rgba(0, 0, 0, .5); */
+  border-radius: 10;
+  background-color: alpha(@background, .0);
+}
+
+#input image {
+  border: none;
+  color: @red;
+  padding-right: 10px;
+}
+
+#input * {
+  border: none;
+  outline: none;
+}
+
+#input:focus {
+  outline: none;
+  border: none;
+
+  border-radius: 10;
+}
+
+#text {
+  margin: 5px;
+  border: none;
+  color: @text;
+  outline: none;
+}
+
+#text {
+  margin: 5px;
+  border: none;
+  color: @text;
+  outline: none;
+}
+
+#entry {
+  border: none;
+  margin: 5px;
+  padding: 10px;
+}
+
+#entry arrow {
+  border: none;
+  color: @lavender;
+
+}
+
+#entry:selected {
+  /* box-shadow: 1px 1px 5px rgba(255, 255, 255, .03); */
+  border: none;
+  border-radius: 10px;
+  background-color: #444444;
+}
+
+/* #entry:selected #text { */
+/*   color: @mauve; */
+/* } */
+
+#entry:drop(active) {
+  background-color: @lavender !important;
+}
