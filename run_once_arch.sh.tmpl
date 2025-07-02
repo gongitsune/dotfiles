@@ -26,7 +26,8 @@ paru -S --noconfirm --needed \
     lazygit \
     lazydocker \
     mise \
-    github-cli
+    github-cli \
+    fzf
 
 if ! echo "command -v fisher &>/dev/null" | fish; then
     echo "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source" | fish
