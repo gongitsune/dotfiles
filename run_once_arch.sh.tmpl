@@ -3,15 +3,12 @@
 #!/bin/bash -eEu
 
 # Linux common installation
-sudo pacman -S --noconfirm --needed base-devel git wget unzip rustup gum
-
-if ! command -v aqua &>/dev/null; then
-    curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v3.1.2/aqua-installer | bash
-fi
+sudo pacman -S --noconfirm --needed base-devel git wget unzip rustup gum fish
 
 # rustup
 gum log --level info "Installing rustup"
 rustup install stable
+rustup install nightly
 rustup default stable
 
 # install paru
@@ -23,6 +20,13 @@ if ! command -v paru &>/dev/null; then
     cd $HOME || exit
     rm -rf "$HOME/paru"
 fi
+
+paru -S --noconfirm --needed \
+    starship \
+    lazygit \
+    lazydocker \
+    mise \
+    github-cli
 
 if ! echo "command -v fisher &>/dev/null" | fish; then
     echo "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source" | fish
