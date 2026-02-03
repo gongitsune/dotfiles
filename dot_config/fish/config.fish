@@ -9,6 +9,7 @@ end
 export EDITOR=nvim
 
 mise activate fish | source
+zoxide init fish | source
 
 alias cd="z"
 alias cdi="zi"
