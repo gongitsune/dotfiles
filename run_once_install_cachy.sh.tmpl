@@ -1,0 +1,27 @@
+{{ if eq .chezmoi.osRelease.id "cachyos" -}}
+
+#!/bin/bash -eEu
+
+# Update all outdated packages
+paru -Syu --noconfirm
+
+# Install needed packages
+paru -S --needed --noconfirm \
+  neovim rustup mise ghostty \
+  1password teams-for-linux \
+  fcitx5-im fcitx5-hazkey-bin hazkey-zenzai-vulkan \
+  lazygit github-cli
+
+# Install rust
+rustup install stable
+rustup install nightly
+rustup default stable
+
+# Install packages use mise
+mise use -g usage@latest
+mise use -g node@latest
+
+# gtk theme
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+
+{{ end }}
