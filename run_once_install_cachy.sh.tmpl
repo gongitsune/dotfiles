@@ -11,7 +11,8 @@ paru -S --needed --noconfirm \
   1password teams-for-linux \
   fcitx5-im fcitx5-hazkey-bin hazkey-zenzai-vulkan \
   lazygit github-cli \
-  git-delta zoxide yazi
+  git-delta zoxide yazi \
+  tailscale
 
 # Install rust
 rustup install stable
@@ -24,5 +25,8 @@ mise use -g node@latest
 
 # gtk theme
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+
+# enable and start systemd services
+sudo systemctl enable --now tailscaled.service
 
 {{ end }}
