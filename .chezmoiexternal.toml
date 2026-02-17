@@ -2,3 +2,8 @@
 type = "git-repo"
 url = "https://github.com/gongitsune/nvim-config.git"
 refreshPeriod = "24h"
+
+[".config/tmux/plugins/catppuccin"]
+type = "git-repo"
+url = "https://github.com/catppuccin/tmux.git"
+refreshPeriod = "24h"
