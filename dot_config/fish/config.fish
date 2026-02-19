@@ -6,12 +6,6 @@ function fish_greeting
    # smth smth
 end
 
-if status is-interactive
-    if not set -q TMUX
-      exec tmux
-    end
-end
-
 export EDITOR=nvim
 
 mise activate fish | source
