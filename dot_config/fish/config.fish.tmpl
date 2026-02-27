@@ -1,3 +1,7 @@
+#!/bin/bash -eEu
+
+{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "cachyos") -}}
+
 source /usr/share/cachyos-fish-config/cachyos-config.fish
 
 # overwrite greeting
@@ -6,7 +10,14 @@ function fish_greeting
    # smth smth
 end
 
+{{ else if eq .chezmoi.os "darwin" -}}
+
+starship init fish | source
+
+{{ end }}
+
 export EDITOR=nvim
+export TMUX_SHELL=$(which fish)
 
 mise activate fish | source
 zoxide init fish | source
