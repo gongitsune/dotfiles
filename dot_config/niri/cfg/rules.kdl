@@ -3,6 +3,14 @@
         clip-to-geometry true
     }
 
+    window-rule {
+      match app-id="^ghostty$"
+
+      background-effect {
+        blur true
+      }
+    }
+
     overview {
       // Choose your favorite color.
       backdrop-color "#222222"
