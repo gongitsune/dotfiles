@@ -1,4 +1,4 @@
-command = /opt/homebrew/bin/fish --login --interactive
+command = fish --login --interactive
 theme = One Half Dark
 background-opacity = 0.9
 background-blur = true
