@@ -1,0 +1,6 @@
+command = /opt/homebrew/bin/fish --login --interactive
+theme = One Half Dark
+background-opacity = 0.9
+background-blur = true
+font-family = 
+macos-option-as-alt = true
