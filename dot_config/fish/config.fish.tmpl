@@ -28,23 +28,7 @@ alias cdi="zi"
 if status is-interactive
     if not set -q TMUX
         if command -q tmux
-            set -l sessions (tmux list-sessions -F "#{session_name}" 2>/dev/null)
-            set -l session_count (count $sessions)
-
-            if test $session_count -gt 1
-                if command -q fzf
-                    set -l target (printf '%s\n' $sessions | fzf --prompt="tmux session> " --height=40%)
-                    if test -n "$target"
-                        exec tmux attach -t "$target"
-                    end
-                else
-                    exec tmux attach -t "$sessions[1]"
-                end
-            else if test $session_count -eq 1
-                exec tmux attach -t "$sessions[1]"
-            else
-                exec tmux new -s main
-            end
+          exec tmux
         end
     end
 end
