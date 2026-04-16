@@ -1,4 +1,3 @@
-command = fish --login --interactive
 theme = One Half Dark
 background-opacity = 0.9
 background-blur = true
