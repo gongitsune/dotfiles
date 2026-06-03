@@ -9,15 +9,11 @@ paru -Syu --noconfirm
 paru -S --needed --noconfirm \
   neovim rustup mise ghostty \
   1password teams-for-linux \
-  fcitx5-im fcitx5-hazkey-bin \
+  fcitx5-im \
   lazygit github-cli \
-  git-delta zoxide yazi \
+  git-delta zoxide \
   tailscale \
   tmux
-
-sudo mkdir -p /usr/lib/x86_64-linux-gnu/hazkey/libllama
-sudo ln -sf /usr/lib/hazkey/libllama/backends \
-  /usr/lib/x86_64-linux-gnu/hazkey/libllama/backends
 
 # Install rust
 rustup install stable
@@ -26,7 +22,6 @@ rustup default stable
 
 # Install packages use mise
 mise use -g usage@latest
-mise use -g node@latest
 
 # gtk theme
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
