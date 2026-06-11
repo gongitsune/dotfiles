@@ -9,11 +9,14 @@ paru -Syu --noconfirm
 paru -S --needed --noconfirm \
   neovim rustup mise ghostty \
   1password teams-for-linux \
-  fcitx5-im \
+  fcitx5-im fcitx5-mozc \
+  cliphist \
   lazygit github-cli \
   git-delta zoxide \
   tailscale \
   tmux
+
+fcitx5 -rd
 
 # Install rust
 rustup install stable

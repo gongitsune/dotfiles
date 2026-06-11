@@ -11,6 +11,12 @@ window-rule {
   }
 }
 
+window-rule {
+  match app-id="org.gnome.NautilusPreviewer"
+
+  open-floating true
+}
+
 overview {
   // Choose your favorite color.
   backdrop-color "#222222"
