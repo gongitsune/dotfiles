@@ -3,12 +3,11 @@
 #!/bin/bash -eEu
 
 # Update all outdated packages
-paru -Syu --noconfirm
+shelly -SU -n
 
 # Install needed packages
-paru -S --needed --noconfirm \
+shelly -SI -n \
   neovim rustup mise ghostty \
-  1password teams-for-linux \
   fcitx5-im fcitx5-mozc \
   cliphist \
   lazygit github-cli \
@@ -16,15 +15,18 @@ paru -S --needed --noconfirm \
   tailscale \
   tmux
 
+shelly -AI -n \
+  1password teams-for-linux
+
 fcitx5 -rd
 
 # Install rust
 rustup install stable
-rustup install nightly
 rustup default stable
 
 # Install packages use mise
 mise use -g usage@latest
+mise use -g node@latest
 
 # gtk theme
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
