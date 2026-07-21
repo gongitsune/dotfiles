@@ -12,8 +12,7 @@ shelly -SI -n \
   cliphist \
   lazygit github-cli \
   git-delta zoxide \
-  tailscale \
-  tmux
+  tailscale
 
 shelly -AI -n \
   1password teams-for-linux
@@ -27,6 +26,8 @@ rustup default stable
 # Install packages use mise
 mise use -g usage@latest
 mise use -g node@latest
+mise use -g herdr@latest
+mise use -g claude@latest
 
 # gtk theme
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark

@@ -24,4 +24,9 @@ zoxide init fish | source
 alias cd="z"
 alias cdi="zi"
 
-exec herdr
+# uv
+fish_add_path "/home/student/.local/bin"
+
+if not set -q HERDR_ENV; and not set -q SSH_CONNECTION
+  exec herdr
+end
