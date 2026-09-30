@@ -8,12 +8,12 @@
 //     scale 1 // No scaling (use 2 for HiDPI)
 // }
 
-output "HDMI-A-1" {
+output "DP-1" {
   mode "2560x1440@59.951"
   focus-at-startup
-  position x=-3840 y=0
 }
 
-output "DP-3" {
-  mode "2560x1440@59.951"
+output "DP-2" {
+  mode "3840x2160@120.000"
+  position x=-2560 y=0
 }
